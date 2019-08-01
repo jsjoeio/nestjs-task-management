@@ -10,4 +10,9 @@ export class User extends BaseEntity {
 
   @Column()
   password: string;
+
+  constructor(user: Partial<User>) {
+    super();
+    Object.assign(this, user);
+  }
 }

@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt';
 import {
   BaseEntity,
   Entity,
@@ -9,6 +10,12 @@ import {
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity {
+  constructor(user: Partial<User>) {
+    super();
+    Object.assign(this, user);
+  }
+
+  /* COLUMNS */
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,8 +25,13 @@ export class User extends BaseEntity {
   @Column()
   password: string;
 
-  constructor(user: Partial<User>) {
-    super();
-    Object.assign(this, user);
+  @Column()
+  salt: string;
+
+  /* METHODS */
+  async validatePassword(password: string): Promise<boolean> {
+    const hash = await bcrypt.hash(password, this.salt);
+
+    return hash === this.password;
   }
 }

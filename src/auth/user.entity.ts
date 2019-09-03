@@ -15,7 +15,9 @@ import {
 export class User extends BaseEntity {
   constructor(user?: Partial<User>) {
     super();
-    Object.assign(this, user);
+    if (user) {
+      Object.assign(this, user);
+    }
   }
 
   /* COLUMNS */

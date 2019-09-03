@@ -13,7 +13,7 @@ import {
 @Entity()
 @Unique(['username'])
 export class User extends BaseEntity {
-  constructor(user: Partial<User>) {
+  constructor(user?: Partial<User>) {
     super();
     Object.assign(this, user);
   }

@@ -13,7 +13,7 @@ export class UserRepository extends Repository<User> {
     const { username, password } = authCredentialsDto;
 
     const salt = await bcrypt.genSalt();
-    const user = new User({
+    const user = this.create({
       username,
       salt,
       password: await this.hashPassword(password, salt),
